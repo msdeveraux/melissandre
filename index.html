@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mélissandre Deveraux</title>
+<style>
+
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Space+Mono:wght@400;700&family=EB+Garamond:ital@0;1&display=swap');
+
+  :root{
+    --maroon: #7a0d0b;
+    --maroon-deep: #5c0a08;
+    --blue: #6e9bb6;
+    --blue-deep: #5e87a1;
+    --cream: #efe6c0;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    background: var(--blue);
+    color: var(--maroon);
+    font-family:'EB Garamond', serif;
+    line-height: 1.65;
+  }
+
+  .site-nav{
+    position: sticky; top: 0; z-index: 10;
+    background: var(--maroon);
+    border-bottom: 2px solid var(--maroon-deep);
+    display:flex; justify-content:center; gap: 24px;
+    padding: 14px 16px; flex-wrap: wrap;
+  }
+  .site-nav a{
+    color: var(--cream); text-decoration:none;
+    font-family:'Space Mono', monospace; font-size: 10.5px;
+    letter-spacing: 1.8px; text-transform: uppercase;
+    padding-bottom: 4px; border-bottom: 1px solid transparent;
+  }
+  .site-nav a:hover{ border-bottom: 1px solid var(--cream); }
+
+  section{ scroll-margin-top: 60px; }
+
+  .section-cover{
+    display: block;
+    width: 90%;
+    max-width: 680px;
+    margin: 32px auto 0;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid var(--maroon);
+  }
+
+  section{ position: relative; }
+
+  .content-wrap{ transition: filter 0.4s ease; }
+  section[data-locked="true"] .content-wrap{
+    filter: blur(10px);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .lock-overlay{
+    display: none;
+    position: absolute; inset: 0; z-index: 5;
+    align-items: center; justify-content: center;
+    background: rgba(94,135,161,0.45);
+    text-align: center; padding: 20px;
+  }
+  section[data-locked="true"] .lock-overlay{ display: flex; }
+
+  .lock-message{
+    background: var(--maroon); color: var(--cream);
+    padding: 14px 22px; border-radius: 6px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; letter-spacing: 1px; max-width: 260px;
+  }
+
+  .hero{
+    min-height: 55vh; display:flex; flex-direction:column;
+    justify-content:center; align-items:center; text-align:center;
+    padding: 50px 24px;
+    background: linear-gradient(180deg, var(--blue) 0%, var(--blue-deep) 100%);
+  }
+  .hero h1{ font-family:'Cormorant Garamond', serif; font-weight:600; font-style:italic; font-size: clamp(32px, 7vw, 54px); }
+  .hero .tagline{ font-family:'Space Mono', monospace; font-size: 12px; letter-spacing:2px; text-transform:uppercase; color: var(--cream); margin-top:10px; }
+
+  .content{ max-width: 680px; margin: 0 auto; padding: 56px 24px; }
+  .content + .content{ border-top: 1px solid rgba(122,13,11,0.25); }
+
+  .prolog{
+    max-width: 640px;
+    margin: 32px auto 0;
+    text-align: justify;
+  }
+
+  .prolog p{
+    margin-bottom: 18px;
+    line-height: 1.75;
+  }
+
+  .highlight{
+    background: linear-gradient(120deg, rgba(122,13,11,0.22) 0%, rgba(122,13,11,0.22) 100%);
+    background-repeat: no-repeat;
+    background-size: 100% 42%;
+    background-position: 0 88%;
+  }
+
+  .highlight-solid{
+    background: var(--maroon);
+    color: var(--cream);
+    padding: 1px 6px;
+    border-radius: 3px;
+  }
+
+  .divider{
+    text-align: center; color: var(--maroon);
+    font-size: 20px; letter-spacing: 10px;
+    padding: 24px 0; opacity: 0.6;
+  }
+
+  .drop-cap::first-letter{
+    font-family:'Cormorant Garamond', serif;
+    font-size: 52px; font-weight: 600;
+    float: left; line-height: 0.8;
+    padding: 4px 8px 0 0;
+    color: var(--maroon);
+  }
+
+  .eyebrow{ font-family:'Space Mono', monospace; font-size: 10.5px; letter-spacing:3px; text-transform:uppercase; opacity:0.75; margin-bottom:8px; }
+  h2{ font-family:'Cormorant Garamond', serif; font-weight:600; font-size:28px; margin-bottom:16px; }
+  h3{ font-family:'Cormorant Garamond', serif; font-weight:600; font-size:19px; margin-bottom:6px; }
+  p{ font-size:16.5px; margin-bottom:14px; }
+  p.lede{ font-style:italic; font-size:18px; }
+  blockquote{ border-left:2px solid var(--maroon); padding-left:16px; font-style:italic; color: var(--maroon-deep); margin:18px 0; }
+
+  /* ==========================================================
+     KARTU IDENTITAS
+     Dipakai 2 kali: (1) preview kecil di halaman, bisa diklik,
+     (2) versi besar di dalam modal. Strukturnya sengaja ditulis
+     ulang di kedua tempat (bukan disambungkan otomatis) supaya
+     tetap gampang dibaca buat pemula.
+  ========================================================== */
+  .id-wrap{ display:flex; justify-content:center; margin:20px 0 6px; cursor:pointer; }
+  .card-hint{
+    text-align:center; font-family:'Space Mono', monospace;
+    font-size: 9.5px; letter-spacing:0.5px; opacity:0.6; margin-bottom:24px;
+  }
+
+  .note-box{
+    text-align: justify;
+    background: rgba(122,13,11,0.08);
+    border: 1px solid var(--maroon);
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin: 30px 0;
+  }
+  .note-box h3{ text-align:justify; margin-bottom:10px; }
+  .note-box p{ text-align:justify; font-size:15px; }
+
+  .card{
+    width:450px; max-width:100%; aspect-ratio: 85.6/54;
+    background: var(--cream); border-radius:10px;
+    border:2px solid var(--maroon);
+    box-shadow: 0 20px 40px -14px rgba(90,10,8,0.5);
+    overflow:hidden; color: var(--maroon);
+  }
+  .band{
+    background: var(--maroon); color: var(--cream);
+    padding:5px 11px 4px; display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:2px solid var(--maroon-deep);
+  }
+  .band .country{ font-family:'Cormorant Garamond', serif; font-weight:600; font-size:12px; }
+  .band .doc{ font-family:'Space Mono', monospace; font-size:7px; text-align:right; opacity:0.85; }
+  .body-row{ display:flex; padding:10px 12px 6px; gap:10px; }
+  .photo{ width:72px; min-width:72px; height:90px; border-radius:3px; background:linear-gradient(160deg,#d9cfae,#c9bd93); position:relative; }
+  .chip{ position:absolute; top:3px; left:3px; width:14px; height:10px; background:linear-gradient(160deg,#c9a44a,#8f7530); border-radius:2px; }
+  .fields{ flex:1; min-width:0; }
+  .f-row{ margin-bottom:4px; }
+  .f-row.two{ display:flex; gap:12px; }
+  .f-row.two > div{ flex:0.5; }
+  .label{ font-family:'Space Mono', monospace; font-size:5px; letter-spacing:0.5px; text-transform:uppercase; opacity:0.75; }
+  .label .en{ display:block; font-style:italic; font-size:4.6px; opacity:0.65; text-transform:none; }
+  .value{ font-family:'Cormorant Garamond', serif; font-size:12px; font-weight:600; }
+  .mrz{ background:var(--maroon); color:var(--cream); font-family:'Space Mono', monospace; font-size:8.5px; letter-spacing:3.5px; padding:5px 12px; white-space:nowrap; overflow:hidden; }
+
+  /* ---------- MODAL (muncul saat kartu diklik) ---------- */
+  .modal-overlay{
+    display:none; position: fixed; inset:0; z-index:100;
+    background: rgba(20,8,7,0.8);
+    align-items:center; justify-content:center;
+    padding: 60px 20px;
+  }
+  .modal-overlay.open{ display:flex; }
+  .modal-wrap{ position:relative; }
+  .modal-close{
+    position:absolute; top:-38px; right:0;
+    background:none; border:none; color:var(--cream);
+    font-family:'Space Mono', monospace; font-size:12px; letter-spacing:1px;
+    cursor:pointer; padding: 6px;
+  }
+  .modal-flip-btn{
+    display:block; margin: 16px auto 0;
+    background: var(--maroon); color: var(--cream);
+    border:1px solid var(--cream); border-radius:4px;
+    font-family:'Space Mono', monospace; font-size:10px;
+    letter-spacing:1px; text-transform:uppercase;
+    padding:9px 16px; cursor:pointer;
+  }
+  .face-back{ display:none; }
+  .modal-inner.flipped .face-front{ display:none; }
+  .modal-inner.flipped .face-back{ display:block; }
+
+  /* Text & kartu di dalam modal dibikin lebih besar pakai clamp(),
+     jadi otomatis menyesuaikan lebar layar tapi tetap jelas dibaca -
+     bukan cuma dizoom polos. */
+  .modal-inner .card{ width: min(200vw, 680px); }
+  .modal-inner .label{ font-size: clamp(7.6px, 2.4vw, 10px); }
+  .modal-inner .label .en{ font-size: clamp(6.6px, 2.4vw, 9px); }
+  .modal-inner .value{ font-size: clamp(12px, 2.4vw, 14px); }
+  .modal-inner .band .country{ font-size: clamp(13px, 3vw, 17px); }
+  .modal-inner .band .doc{ font-size: clamp(8px, 1.8vw, 10px); }
+  .modal-inner .mrz{ font-size: clamp(10px, 2.2vw, 14px); }
+  .modal-inner .photo{ width: clamp(90px,20vw,130px); min-width: clamp(90px,20vw,130px); height: clamp(112px,25vw,162px); }
+  .modal-inner .chip{ width: clamp(16px,4vw,26px); height: clamp(12px,3vw,19px); }
+
+  /* ---------- profil kehidupan ---------- */
+  .profile-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:20px; margin-top:20px; }
+  .profile-block{ border-left:2px solid var(--maroon); padding-left:14px; }
+
+  /* ---------- timeline ---------- */
+  .event{ display:flex; gap:16px; padding:12px 0; border-bottom:1px solid rgba(122,13,11,0.2); }
+  .event .year{ font-family:'Space Mono', monospace; min-width:52px; font-size:12.5px; }
+
+  /* ---------- son histoire ---------- */
+  .story-entry{ padding:18px 0; border-bottom:1px solid rgba(122,13,11,0.2); }
+  .story-entry .meta{ font-family:'Space Mono', monospace; font-size:9.5px; letter-spacing:1px; opacity:0.65; margin-bottom:4px; }
+
+  .story-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+  }
+
+  .story-card{
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    min-width: 0;
+  }
+
+  .story-card img{
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid var(--maroon);
+    transition: opacity 0.2s;
+  }
+
+  .story-card:hover img{ opacity: 0.8; }
+  .story-card h3{
+    margin-top: 8px;
+    font-size: 16px;
+  }
+
+  .story-card p{
+    font-size: 13px;
+    opacity: 0.8;
+    margin-bottom: 0;
+  }
+
+  footer{
+    text-align:center; padding:28px 24px 44px;
+    background: var(--maroon); color: var(--cream);
+    font-family:'Space Mono', monospace; font-size:9.5px; letter-spacing:1px;
+  }
+
+  @media (max-width: 480px){
+    .site-nav{ gap:14px; padding:12px; }
+    .site-nav a{ font-size:9px; letter-spacing:1px; }
+    .content{ padding: 40px 18px; }
+  }
+
+</style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <a href="#accueil">Accueil</a>
+    <a href="#la-verite">I. La Vérité</a>
+    <a href="#didentite">II. D'Identité</a>
+    <a href="#son-histoire">III. Son Histoire</a>
+  </nav>
+
+  <section id="accueil" class="hero">
+    <h1>Mélissandre Deveraux</h1>
+    <div class="tagline"><strong>Les secrets de la fierté et de la grâce.</strong></div>
+    <br>
+    <img class="section-cover" src="images/tale-of-her.png" alt="Cover A Tale of Her">
+    <div class="prolog">
+      <h2>A TALE OF HER</h2>
+      <p class="lede">
+      Have you ever found yourself drifting into a fairy tale that you
+      read? She had.
+      It is not quite of that kind of fantasy movie,
+      but the world just never let her know earlier.
+      </p>
+      <p>
+        <strong>Ribeauvillé, Alsace, Prancis. A new life came into the world.</strong>
+        She is someone who may be described as having a sweet smile, fair skin, clear and bold expressive eyes
+        and a warm and gentle aura, which is particularly evident when she meets people and animals.
+        She was the child her parents had longed for. She is the sole daughter of Deveraux’s third pillar.
+        Her life was great, wonderful, filled with happiness and happy memories until the day <em>she discovered the truth.</em>
+      </p>
+    </div>
+    <br>
+    <div class="note-box">
+      <h3>Writer Notes:</h3>
+        <p>Hello to all you writers who’ve visited this page. Thank you for checking out Mélissandre’s story. 
+          I’m up for working with people outside family and romantic partners, and I’d love to write with others. 
+          If you’re thinking of writing a story together, there are a few things you should know before getting into a collaboration.
+          KIRANA is happy to work with other writers and to receive writing invitations. But please don’t use GODMODING or METAGAMING without my permission. 
+          I’ll be using Indonesian and mid-level English when I’m writing and speaking, with a bit of French for general greetings and similar situations.</p>
+          <p><em>Please send me a direct message if you would like to write with my character, Mélissandre. Thank you for reading this section.</em></p>
+    </div>
+  </section>
+
+  <div class="divider">⸙</div>
+  <!-- ================= I. LA VÉRITÉ ================= -->
+  <section id="la-verite" data-locked="true">
+    <div class="content-wrap">
+      <img class="section-cover" src="images/la-verite.png" alt="Cover La Vérité">
+      <div class="content">
+        <div class="eyebrow">I.</div>
+        <h2>La Vérité</h2>
+        <p class="lede">Masa kecil umumnya dikelilingi oleh ragam imajinasi yang berasal dari cerita. Baik termuat dalam sebuah buku, film, dan lainnya. Namun, siapa yang pernah menyangka, kehidupannya bagaikan masuk ke dalam sebuah dongeng yang pernah dibaca?</p>
+        <p class="drop-cap"><strong>Mélissandre Skye Deveraux.</strong>
+          Seorang anak perempuan yang sangat dinantikan kehadirannya di dunia, menjalani kehidupan dengan dua identitas. Terlahir dari sepasang orang tua berdarah murni penyihir bukanlah pilihannya. 
+          Bertahun-tahun silam, keluarga Deveraux memutuskan tidak lagi berkutat maupun mencari tahu mengenai alam sihir pasca perpecahan yang terjadi pada masa itu. Menikmati sisa usia, menciptakan keluarga penuh harmoni, serta mengukir kisah dengan meninggalkan jejak kenangan indah bersama mereka yang disayangi.
+        </p>
+        <p>Menjadi manusia seutuhnya. Mélissandre lahir jauh setelah kehidupan orang tuanya berjalan lebih baik dari masa transisi sejak melepas dunia sihir. Mereka berusaha untuk tinggal jauh di sebuah kota kecil Ribeauvillé, Alasce, tepatnya di Prancis yang memanjakan pandangan dan dikenal dengan jalan-jalan berbunga. Membesarkan Mélissandre dengan penuh cinta, lingkungan yang hangat, serta dukungan tanpa sirna.
+        </p>
+        <p>Namun, rencana seorang manusia sehebat apa pun, tidak akan bisa ada yang menerka sebuah takdir. Cukup lama keluarga Deveraux berhasil bersembunyi dan menjauhkan diri dari segala macam yang berkaitan dengan alam sihir, begitu Mélissandre menginjak usia tatkala dirinya mulai mahir membaca; berhitung, menulis, bahkan bernyanyi dengan riang, sebuah kebenaran perlu disampaikan. Buku dongeng berisi mengenai penyihir yang sebelumnya ia gemari, justru bak telah memberikannya petunjuk sejak awal.
+        </p>
+        <p>Sebuah undangan dari <em>Hogwarts School of Witchcraft and Wizardy</em>—sekolah sihir yang amat dikenal di kalangan penyihir—telah berada di kedua tangannya. Kebenaran mengenai identitasnya yang merupakan berasal dari keluarga penyihir menghantam pikirannya. Tidak pernah terbayangkan. Bukan mengenyam pendidkan di sekolah pada umumnya, tetapi sekolah dengan berbagai energi sihir yang bahkan tidak pernah ia lihat sebelumnya. 
+          Mélissandre kecil tak memahaminya. Namun, selayaknya seorang anak dengan rasa ingin tahu yang besar, ia memutuskan untuk mencobanya.
+        </p>
+        <p>Empat tahun ia habiskan menjadi bagian dari sekolah sihir sebagai murid dari asrama Slytherin. Tantangan demi tantangan tiap harinya perlu ia hadapi. Tiada alat elektronik yang mampu digunakan bahkan sekadar bertukar kabar dengan kedua orang tuanya. Hanya sepucuk surat yang bisa diberikan dan memakan waktu yang cukup lama. Hidup di sebuah kastil membuatnya sulit untuk beradaptasi dengan cepat, terlebih karakternya yang cukup bertabrakan dengan sebagaimana para penyihir Slytherin pada umumnya.
+        </p>
+        <p>Empat tahun kehidupan, juga tahun keempat untuknya mengenyam pendidikan. Di tahun itu pun menjadi tahun akhir untuknya menyelami dunia magis. <strong>Mélissandre memutuskan kembali menjadi seorang manusia biasa</strong>, tanpa sihir dan tongkat, tanpa adanya kilauan magis yang tak jarang memiliki tipu muslihat, nihil cairan ramuan yang terkadang berbahaya, hingga berbagai kejutan yang membuatnya tak nyaman.</p>
+        <p>Menutup rapat empat tahun kehidupannya itu hanya sebagai mimpi dalam tidur. Enggan membiarkan siapa pun mengetahui. Enggan membiarkan siapa pun mengenalinya sebagai seorang penyihir. <strong>Mélissandre memilih menjadi manusia, maka semua orang akan melihatnya sebagai seorang manusia.</strong></p>
+      </div>
+    </div>
+
+    <div class="lock-overlay">
+      <div class="lock-message">🔒 Klik menu "I. La Vérité" di atas untuk membuka bagian ini</div>
+    </div>
+    <!-- Contoh: <strong>teks</strong> = tebal, <em>teks</em> = miring -->
+  </section>
+
+  <!-- ================= II. D'IDENTITÉ ================= -->
+  <section id="didentite" class="content">
+    <div class="eyebrow">II.</div>
+    <h2>D'Identité</h2>
+
+    <!-- Preview kartu - klik untuk memperbesar -->
+    <div class="id-wrap" onclick="openCard()">
+      <div class="card">
+        <div class="band">
+          <span class="country">RÉPUBLIQUE FRANÇAISE</span>
+          <span class="doc">CARTE NATIONALE<br>D'IDENTITÉ</span>
+        </div>
+        <div class="body-row">
+          <div class="photo">
+            <img src="images/foto-melissa.jpg" alt="Foto Melissa"
+                 style="width:100%;height:100%;object-fit:cover;border-radius:3px;"
+                 onerror="this.style.display='none'">
+            <div class="chip"></div>
+          </div>
+          <div class="fields">
+            <div class="f-row">
+              <div class="label">Nom <span class="en">Name</span></div>
+              <div class="value">DEVERAUX</div>
+            </div>
+            <div class="f-row">
+              <div class="label">Prénoms <span class="en">Given names</span></div>
+              <div class="value">Mélissandre Skye</div>
+            </div>
+            <div class="f-row two">
+              <div>
+                <div class="label">Née le <span class="en">Date of birth</span></div>
+                <div class="value" style="font-size:11px;">13.07.1999</div>
+              </div>
+              <div>
+                <div class="label">Sexe <span class="en">Sex</span></div>
+                <div class="value" style="font-size:11px;">F</div>
+              </div>
+            </div>
+            <div class="f-row">
+              <div class="label">Lieu de naissance <span class="en">Place of birth</span></div>
+              <div class="value" style="font-size:11px;">Ribeauvillé, FRA</div>
+            </div>
+            <div class="f-row two">
+              <div>
+                <div class="label">Nationalité <span class="en">Nationality</span></div>
+                <div class="value" style="font-size:11px;">Française</div>
+              </div>
+              <div>
+                <div class="label">Carte n° <span class="en">Document no.</span></div>
+                <div class="value" style="font-size:11px;">M1SDAMEV3</div>
+              </div>
+            </div>
+            <div class="f-row">
+              <div class="label">Date d'expir<span class="en">Expiry date</span></div>
+              <div class="value" style="font-size:11px;">07 10 2030</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-hint">Ketuk kartu untuk lihat lebih jelas — depan &amp; belakang</div>
+
+    <h2 style="margin-top:44px;">Profil</h2>
+    <div class="profile-grid">
+      <div class="profile-block">
+        <h3>Pekerjaan</h3>
+        <p>Tulis pekerjaan/aktivitas Mélissandre sehari-hari.</p>
+      </div>
+      <div class="profile-block">
+        <h3>Hobi</h3>
+        <p>Daftar hobi atau ketertarikannya.</p>
+      </div>
+      <div class="profile-block">
+        <h3>Ciri Fisik</h3>
+        <p>Tinggi 170 cm &middot; Berat 57 kg &middot; Mata hitam kecoklatan (hazel)</p>
+      </div>
+      <div class="profile-block">
+        <h3>Keluarga Inti</h3>
+        <p>Nama orang tua dan hubungan terdekatnya.</p>
+      </div>
+      <div class="profile-block">
+        <h3>Keluarga Besar</h3>
+        <p>Info soal pilar-pilar keluarga Deveraux lainnya.</p>
+      </div>
+    </div>
+
+    <h2 style="margin-top:44px;">Garis Waktu Keluarga</h2>
+    <div class="event">
+      <div class="year">1927</div>
+      <div>Éloise Deveraux hadir dalam rally Grindelwald di Père Lachaise, Paris.</div>
+    </div>
+    <div class="event">
+      <div class="year">1999</div>
+      <div>Mélissandre lahir di Ribeauvillé, dibesarkan sepenuhnya sebagai Muggle.</div>
+    </div>
+    <div class="event">
+      <div class="year">2014</div>
+      <div>Berhenti dari Hogwarts di tahun keempat.</div>
+    </div>
+  </section>
+
+  <!-- ================= III. SON HISTOIRE ================= -->
+  <section id="son-histoire" class="content">
+    <div class="eyebrow">III.</div>
+    <h2>Son Histoire</h2>
+    <p class="lede">Kumpulan kisah tentang Mélissandre.</p>
+  
+    <div class="story-grid">
+    
+    <a class="story-card" href="https://x.com/Amesavoile/status/2060033263985631300?s=20" target="_blank" rel="noopener">
+      <img src="images/partnered-01.png" alt="Temu Mula">
+      <h3>Temu Mula</h3>
+      <p>Pertemuan yang bermula dari ketidaksengajaan.</p>
+    </a>
+    <a class="story-card" href="https://x.com/Amesavoile/status/2060034124279365789?s=20" target="_blank" rel="noopener">
+      <img src="images/partnered-02.png" alt="Menyulam Sapa">
+      <h3>Menyulam Sapa</h3>
+      <p>Bertukar sapa dengan seseorang melalui kegiatan menyulam.</p>
+    </a>
+    </div>
+  </section>
+
+  <footer>Roleplayer purposes only. Created by KIRANA.
+    <br>
+    <em>AMESAVOILE, 2026.</em>
+  </footer>
+
+  <!-- ================= MODAL KARTU (depan & belakang) ================= -->
+  <div class="modal-overlay" id="cardModal" onclick="closeCard()">
+    <div class="modal-wrap" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeCard()">✕ Tutup</button>
+
+      <div class="modal-inner" id="modalInner">
+
+        <!-- SISI DEPAN -->
+        <div class="card face-front">
+          <div class="band">
+            <span class="country">RÉPUBLIQUE FRANÇAISE</span>
+            <span class="doc">CARTE NATIONALE<br>D'IDENTITÉ</span>
+          </div>
+          <div class="body-row">
+            <div class="photo">
+              <img src="images/foto-melissa.jpg" alt="Foto Melissa"
+                   style="width:100%;height:100%;object-fit:cover;border-radius:3px;"
+                   onerror="this.style.display='none'">
+              <div class="chip"></div>
+            </div>
+            <div class="fields">
+              <div class="f-row">
+                <div class="label">Nom <span class="en">Name</span></div>
+                <div class="value">DEVERAUX</div>
+              </div>
+              <div class="f-row">
+                <div class="label">Prénoms <span class="en">Given names</span></div>
+                <div class="value">Mélissandre Skye</div>
+              </div>
+              <div class="f-row two">
+                <div>
+                  <div class="label">Née le <span class="en">Date of birth</span></div>
+                  <div class="value">13.07.1999</div>
+                </div>
+                <div>
+                  <div class="label">Sexe <span class="en">Sex</span></div>
+                  <div class="value">F</div>
+                </div>
+              </div>
+              <div class="f-row">
+                <div class="label">Lieu de naissance <span class="en">Place of birth</span></div>
+                <div class="value">Ribeauvillé, FRA</div>
+              </div>
+              <div class="f-row two">
+                <div>
+                  <div class="label">Nationalité <span class="en">Nationality</span></div>
+                  <div class="value">Française</div>
+                </div>
+                <div>
+                  <div class="label">Carte n° <span class="en">Document no.</span></div>
+                  <div class="value">M1SDAMEV3</div>
+                </div>
+              </div>
+              <div class="f-row">
+                <div class="label">Date d'expir <span class="en">Expiry date</span></div>
+                <div class="value">07 10 2030</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SISI BELAKANG -->
+        <div class="card face-back">
+          <div class="band">
+            <span class="country">RÉPUBLIQUE FRANÇAISE</span>
+            <span class="doc">CARTE NATIONALE<br>D'IDENTITÉ</span>
+          </div>
+          <div style="padding:10px 12px;">
+            <div class="f-row">
+              <div class="label">Adresse <span class="en">Address</span></div>
+              8 Chemin des Trois Châteaux, 68150 Ribeauvillé, France
+              <div class="value">—</div>
+            </div>
+            <div class="f-row two">
+              <div>
+                <div class="label">Taille <span class="en">Height</span></div>
+                <div class="value">1,70 m</div>
+              </div>
+              <div>
+                <div class="label">Date De Délivrance<span class="en">Date of issue</span></div>
+                05 10 2020
+                <div class="value">—</div>
+              </div>
+            </div>
+            <div class="f-row">
+              <div class="label">Autorité <span class="en">Issuing authority</span></div>
+              <div class="value">—</div>
+            </div>
+
+            <div class="f-row" style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:10px;">
+              <div style="width:35%; height:15%; border-bottom:1px solid var(--maroon); position:relative;">
+                <!-- Ganti dengan tanda tangan asli begitu kamu punya filenya:
+                     <img src="images/tanda-tangan.png" alt="Tanda tangan Mélissandre"
+                          style="max-width:100%; max-height:100%; object-fit:contain;"> -->
+              </div>
+              <div class="chip" style="position:static;"></div>
+            </div>
+          </div>
+          <div class="mrz">
+            IDFRAM1SDAMEV3&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;<br>
+            9907139F3407139FRA&lt;&lt;&lt;&lt;&lt;&lt;&lt;08DEVERAUX&lt;&lt;MELISSANDRE&lt;SKYE&lt;&lt;
+          </div>
+        </div>
+
+      </div>
+
+      <button class="modal-flip-btn" id="flipBtn" onclick="flipCard()">Lihat Sisi Belakang</button>
+    </div>
+  </div>
+
+  <script>
+    // Kumpulan fungsi kecil buat buka/tutup/balik kartu.
+    // event.stopPropagation() di modal-wrap (lihat HTML di atas)
+    // supaya klik di DALAM kartu gak ikut menutup modal.
+
+    function openCard(){
+      document.getElementById('cardModal').classList.add('open');
+    }
+
+    function closeCard(){
+      document.getElementById('cardModal').classList.remove('open');
+    }
+
+    function flipCard(){
+      var inner = document.getElementById('modalInner');
+      var btn = document.getElementById('flipBtn');
+      inner.classList.toggle('flipped');
+      btn.textContent = inner.classList.contains('flipped')
+        ? 'Lihat Sisi Depan'
+        : 'Lihat Sisi Belakang';
+    }
+
+    document.querySelectorAll('.site-nav a[href^="#"]').forEach(function(link){
+      link.addEventListener('click', function(){
+        var id = this.getAttribute('href').slice(1);
+        var target = document.getElementById(id);
+        if(target){ target.removeAttribute('data-locked'); }
+      });
+    });
+    
+  </script>
+
+</body>
+</html>
