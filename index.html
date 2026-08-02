@@ -162,7 +162,9 @@
   .note-box p{ text-align:justify; font-size:15px; }
 
   .card{
-    width:450px; max-width:100%; aspect-ratio: 85.6/54;
+    width: 380px; 
+    max-width: 100%;
+    min-height: 240px;
     background: var(--cream); border-radius:10px;
     border:2px solid var(--maroon);
     box-shadow: 0 20px 40px -14px rgba(90,10,8,0.5);
@@ -217,7 +219,7 @@
   /* Text & kartu di dalam modal dibikin lebih besar pakai clamp(),
      jadi otomatis menyesuaikan lebar layar tapi tetap jelas dibaca -
      bukan cuma dizoom polos. */
-  .modal-inner .card{ width: min(200vw, 680px); }
+  .modal-inner .card{ width: min(92vw, 680px); }
   .modal-inner .label{ font-size: clamp(7.6px, 2.4vw, 10px); }
   .modal-inner .label .en{ font-size: clamp(6.6px, 2.4vw, 9px); }
   .modal-inner .value{ font-size: clamp(12px, 2.4vw, 14px); }
