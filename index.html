@@ -184,6 +184,8 @@
   .f-row{ margin-bottom:4px; }
   .f-row.two{ display:flex; gap:12px; }
   .f-row.two > div{ flex:0.5; }
+  .f-row.three{ display: flex; gap: 10px; }
+  .f-row.three > div{ flex: 1; min-width: 0; }
   .label{ font-family:'Space Mono', monospace; font-size:5px; letter-spacing:0.5px; text-transform:uppercase; opacity:0.75; }
   .label .en{ display:block; font-style:italic; font-size:4.6px; opacity:0.65; text-transform:none; }
   .value{ font-family:'Cormorant Garamond', serif; font-size:12px; font-weight:600; }
@@ -396,40 +398,40 @@
           </div>
           <div class="fields">
             <div class="f-row">
-              <div class="label">Nom <span class="en">Name</span></div>
+              <div class="label">Nom <span class="en">Surname</span></div>
               <div class="value">DEVERAUX</div>
             </div>
             <div class="f-row">
               <div class="label">Prénoms <span class="en">Given names</span></div>
               <div class="value">Mélissandre Skye</div>
             </div>
-            <div class="f-row two">
-              <div>
-                <div class="label">Née le <span class="en">Date of birth</span></div>
-                <div class="value" style="font-size:11px;">13.07.1999</div>
-              </div>
+            <div class="f-row three">
               <div>
                 <div class="label">Sexe <span class="en">Sex</span></div>
-                <div class="value" style="font-size:11px;">F</div>
+                <div class="value">F</div>
               </div>
-            </div>
-            <div class="f-row">
-              <div class="label">Lieu de naissance <span class="en">Place of birth</span></div>
-              <div class="value" style="font-size:11px;">Ribeauvillé, FRA</div>
-            </div>
-            <div class="f-row two">
               <div>
                 <div class="label">Nationalité <span class="en">Nationality</span></div>
-                <div class="value" style="font-size:11px;">Française</div>
-              </div>
-              <div>
-                <div class="label">Carte n° <span class="en">Document no.</span></div>
-                <div class="value" style="font-size:11px;">M1SDAMEV3</div>
+                <div class="value">FRA</div>
               </div>
             </div>
+            <div>
+              <div class="label">Née le <span class="en">Date of birth</span></div>
+              <div class="value">13.07.1999</div>
+            </div>
             <div class="f-row">
+              <div>
+                <div class="label">Lieu de naissance <span class="en">Place of birth</span></div>
+                <div class="value">Ribeauvillé, FRA</div>
+              </div>
+              <div class="f-row two">
+                <div class="label">N° du document <span class="en">Document no.</span></div>
+                <div class="value">M1SDAMEV3</div>
+              </div>
+            </div>
+            <div>
               <div class="label">Date d'expir<span class="en">Expiry date</span></div>
-              <div class="value" style="font-size:11px;">07 10 2030</div>
+              <div class="value">07.10.2030</div>
             </div>
           </div>
         </div>
@@ -523,43 +525,43 @@
               <div class="chip"></div>
             </div>
             <div class="fields">
-              <div class="f-row">
-                <div class="label">Nom <span class="en">Name</span></div>
-                <div class="value">DEVERAUX</div>
+            <div class="f-row">
+              <div class="label">Nom <span class="en">Surname</span></div>
+              <div class="value">DEVERAUX</div>
+            </div>
+            <div class="f-row">
+              <div class="label">Prénoms <span class="en">Given names</span></div>
+              <div class="value">Mélissandre Skye</div>
+            </div>
+            <div class="f-row three">
+              <div>
+                <div class="label">Sexe <span class="en">Sex</span></div>
+                <div class="value">F</div>
               </div>
-              <div class="f-row">
-                <div class="label">Prénoms <span class="en">Given names</span></div>
-                <div class="value">Mélissandre Skye</div>
+              <div>
+                <div class="label">Nationalité <span class="en">Nationality</span></div>
+                <div class="value">FRA</div>
               </div>
-              <div class="f-row two">
-                <div>
-                  <div class="label">Née le <span class="en">Date of birth</span></div>
-                  <div class="value">13.07.1999</div>
-                </div>
-                <div>
-                  <div class="label">Sexe <span class="en">Sex</span></div>
-                  <div class="value">F</div>
-                </div>
-              </div>
-              <div class="f-row">
+            </div>
+            <div>
+              <div class="label">Née le <span class="en">Date of birth</span></div>
+              <div class="value">13.07.1999</div>
+            </div>
+            <div class="f-row">
+              <div>
                 <div class="label">Lieu de naissance <span class="en">Place of birth</span></div>
                 <div class="value">Ribeauvillé, FRA</div>
               </div>
               <div class="f-row two">
-                <div>
-                  <div class="label">Nationalité <span class="en">Nationality</span></div>
-                  <div class="value">Française</div>
-                </div>
-                <div>
-                  <div class="label">Carte n° <span class="en">Document no.</span></div>
-                  <div class="value">M1SDAMEV3</div>
-                </div>
-              </div>
-              <div class="f-row">
-                <div class="label">Date d'expir <span class="en">Expiry date</span></div>
-                <div class="value">07 10 2030</div>
+                <div class="label">N° du document <span class="en">Document no.</span></div>
+                <div class="value">M1SDAMEV3</div>
               </div>
             </div>
+            <div>
+              <div class="label">Date d'expir<span class="en">Expiry date</span></div>
+              <div class="value">07.10.2030</div>
+            </div>
+          </div>
           </div>
         </div>
 
@@ -569,37 +571,33 @@
             <span class="country">RÉPUBLIQUE FRANÇAISE</span>
             <span class="doc">CARTE NATIONALE<br>D'IDENTITÉ</span>
           </div>
-          <div style="padding:10px 12px;">
-            <div class="f-row">
-              <div class="label">Adresse <span class="en">Address</span></div>
-              8 Chemin des Trois Châteaux, 68150 Ribeauvillé, France
-              <div class="value">—</div>
-            </div>
+          <div style="padding: 10px 12px;">
             <div class="f-row two">
               <div>
                 <div class="label">Taille <span class="en">Height</span></div>
                 <div class="value">1,70 m</div>
               </div>
               <div>
-                <div class="label">Date De Délivrance<span class="en">Date of issue</span></div>
-                05 10 2020
-                <div class="value">—</div>
+                <div class="label">Date de délivrance <span class="en">Date of issue</span></div>
+                <div class="value">05.10.2020</div>
               </div>
-            </div>
-            <div class="f-row">
-              <div class="label">Autorité <span class="en">Issuing authority</span></div>
-              <div class="value">—</div>
-            </div>
+              <div class="f-row">
+                <div class="label">Adresse <span class="en">Address</span></div>
+                <div class="value">8 Chemin des Trois Châteaux, 68150 Ribeauvillé, France</div>
+              </div>
+              <div class="f-row">
+                <div class="label">Autorité <span class="en">Issuing authority</span></div>
+                <div class="value">-</div>
+              </div>
 
-            <div class="f-row" style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:10px;">
-              <div style="width:35%; height:15%; border-bottom:1px solid var(--maroon); position:relative;">
-                <!-- Ganti dengan tanda tangan asli begitu kamu punya filenya:
-                     <img src="images/tanda-tangan.png" alt="Tanda tangan Mélissandre"
-                          style="max-width:100%; max-height:100%; object-fit:contain;"> -->
+              <div class="f-row" style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 10px;">
+                <div style="width: 35%; height: 15%; border-bottom: 1px solid var(--maroon); position:relative;">
+                  <img src="images/ttd-melissa.png" alt="Tanda tangan Melissa"
+                  style="max-width: 100%; object-fit: contain;">
+                </div>
+                <div class="chip" style="position: static;"></div>
               </div>
-              <div class="chip" style="position:static;"></div>
             </div>
-          </div>
           <div class="mrz">
             IDFRAM1SDAMEV3&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;<br>
             9907139F3407139FRA&lt;&lt;&lt;&lt;&lt;&lt;&lt;08DEVERAUX&lt;&lt;MELISSANDRE&lt;SKYE&lt;&lt;
